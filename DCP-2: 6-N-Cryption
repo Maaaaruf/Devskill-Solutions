@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+
+ll gcd(ll a, ll b){
+	if (a == 0)
+		return b;
+	return gcd(b % a    , a);
+}
+
+int main()
+{    ll encryptedData, noOfKeys, temp_noOfkeys, largePrime=7;
+    vector <ll> eKey;
+    vector <ll> key;
+
+    cin>>encryptedData>>noOfKeys;
+    eKey.resize(noOfKeys);
+
+    while(noOfKeys){
+        scanf("%lld", &eKey[noOfKeys]);
+        noOfKeys--;
+    }
+
+    temp_noOfkeys= noOfKeys= eKey.size();
+    largePrime= eKey[noOfKeys];
+
+    while(temp_noOfkeys){
+        largePrime= gcd(eKey[temp_noOfkeys],largePrime);
+        temp_noOfkeys--;
+    }
+
+    while(noOfKeys){
+        encryptedData-= eKey[noOfKeys]/largePrime;
+        noOfKeys--;
+    }
+
+    cout<<"Output: "<<encryptedData<<endl;
+    return 0;
+}
